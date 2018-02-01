@@ -2,9 +2,11 @@
 
 int main() {
 	int x = 12;
-	int y = x + 1;
-    printf("%i\n", y);
-    return 0;
+	int y = 2;
+	int z;
+	int *p = &y;
+	int *q = 0;
+	printf("%i\n", *q);
 }
 /* Observations:
 With the non-optimized code, there is no x referenced, but there is a line putting the value of x into a memory address.
