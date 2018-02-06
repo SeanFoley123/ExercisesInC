@@ -5,7 +5,7 @@
 Modify the link below so it points to the `ex02` directory in your
 student repository.
 
-[Here is a link to the ex02 directory in my repository](https://github.com/YOUR_GITHUB_USERNAME_HERE/ExercisesInC/tree/master/exercises/ex02)
+[Here is a link to the ex02 directory in my repository](https://github.com/SeanFoley123/ExercisesInC/tree/master/exercises/ex02)
 
 ### Think OS Chapter 2 reading questions
 
@@ -13,28 +13,28 @@ For each of the reading questions below, write answers in the form of
 a clear, concise, complete sentence or two.
 
 1. Give a real-world example of virtualization (ideally not one of 
-the ones in the book).  What is abstractly true about the system that
-is not literally true about the implementation?
-	- Debit cards. It appears that you swipe the card and money is removed from your checking account much like withdrawing and
-	using cash. In actuality, there's likely no transfer of physical money; just a lot of complex verifications and a change in
-	account balances.
+  the ones in the book).  What is abstractly true about the system that
+  is not literally true about the implementation?
+  - Debit cards. It appears that you swipe the card and money is removed from your checking account much like withdrawing and
+    using cash. In actuality, there's likely no transfer of physical money; just a lot of complex verifications and a change in
+    account balances.
 
 2. What is the difference between a program and a process?
-	- A program is the set of instructions and data that performs a certain desired operation. A process is the virtual space
-	that contains that program as it runs, and gives the similitude that the program is running continuously.
+  - A program is the set of instructions and data that performs a certain desired operation. A process is the virtual space
+    that contains that program as it runs, and gives the similitude that the program is running continuously.
 
 3. What is the primary purpose of the process abstraction? 
-	- So that programmers have a very simple interface to the processor; they give commands, and the processor completes those
-	commands as if it has nothing else to do.
+  - So that programmers have a very simple interface to the processor; they give commands, and the processor completes those
+    commands as if it has nothing else to do.
 
 4. What illusion does the process abstraction create?
-	- That every process is running continuously, when really process time is stopping and starting relative to clock time.
+  - That every process is running continuously, when really process time is stopping and starting relative to clock time.
 
 5. What is the kernel?
-	- It's the brain coordinating basic OS operations.
+  - It's the brain coordinating basic OS operations.
 
 6. What is a daemon?
-	- A process that provides an individual OS operation.
+  - A process that provides an individual OS operation.
 
 ### My notes
 Isolation via interaces; changes in individual code components should not affect other code components.
