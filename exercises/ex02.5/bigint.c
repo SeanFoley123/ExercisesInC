@@ -1,7 +1,7 @@
 /* Example code for Exercises in C.
 
 This program shows a way to represent a BigInt type (arbitrary length integers)
-using C strings, with numbers represents as a string of decimal digits in reverse order.
+using C strings, with numbers represented as a string of decimal digits in reverse order.
 
 Follow these steps to get this program working:
 
@@ -22,6 +22,7 @@ Follow these steps to get this program working:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <assert.h>
 
 /* reverse_string: Returns a new string with the characters reversed.
@@ -32,8 +33,13 @@ s: string
 returns: string
 */
 char *reverse_string(char *s) {
-    //TODO: Fill this in.
-    return "";
+    char *reversed_string = malloc(strlen(s));
+    int counter = 0;
+    for (int i=strlen(s)-1; i>=0; i--) {
+        reversed_string[counter] = s[i];
+        counter++;
+    }
+    return reversed_string;
 }
 
 /* ctoi: Converts a character to integer.
@@ -52,8 +58,8 @@ i: integer 0 to 9
 returns: character '0' to '9'
 */
 char itoc(int i) {
-    //TODO: Fill this in, with an appropriate assertion.
-    return '0';
+    assert (i>=0 && i <= 9);
+    return (char) (i + 48);
 }
 
 /* add_digits: Adds two decimal digits, returns the total and carry.
@@ -69,7 +75,12 @@ carry: pointer to char
 
 */
 void add_digits(char a, char b, char c, char *total, char *carry) {
-    //TODO: Fill this in.
+    int a_int = ctoi(a);
+    int b_int = ctoi(b);
+    int c_int = ctoi(c);
+    int sum = a_int + b_int + c_int;
+    *total = itoc(sum%10);
+    *carry = itoc(sum/10);
 }
 
 /* Define a type to represent a BigInt.
@@ -204,6 +215,6 @@ int main (int argc, char *argv[])
 
     //TODO: When you have the first three functions working,
     //      uncomment the following, and it should work.
-    // test_add_bigint();
+    test_add_bigint();
     return 0;
 }
