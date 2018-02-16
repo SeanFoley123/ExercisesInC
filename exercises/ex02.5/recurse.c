@@ -14,6 +14,8 @@ int factorial(int n) {
         return 1;
     } else {
         int res = factorial(n-1);
+        // printf("Res at %p when n is %d\n", &res, n);
+        printf("On execution n = %d, n + 16 = %d\n", *(&n), *(&n + 0x8));
         return n * res;
     }
 }
@@ -40,8 +42,8 @@ int main (int argc, char *argv[])
     int res = factorial(4);
     printf("factorial(3) = %d\n", res);
 
-    int res2 = fibonacci(4);
-    printf("fibonacci(3) = %d\n", res2);
+    // int res2 = fibonacci(4);
+    // printf("fibonacci(3) = %d\n", res2);
 
     printf("Location of factorial code is %p\n", factorial);
     printf("Location of fibonacci code is %p\n", fibonacci);
