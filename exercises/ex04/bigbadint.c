@@ -1,21 +1,59 @@
 /* Example code for Exercises in C.
 
 This program shows a way to represent a BigInt type (arbitrary length integers)
-using C strings, with numbers represented as a string of decimal digits in reverse order.
+using C strings, with numbers represents as a string of decimal digits in reverse order.
 
-Follow these steps to get this program working:
+This program contains two deliberate errors as a debugging exercise.
 
-1) Read through the whole program so you understand the design.
+1) Compile and run this program like this:
 
-2) Compile and run the program.  It should run three tests, and they should fail.
+gcc -g -std=c99 bigbadint.c
+./a.out
 
-3) Fill in the body of reverse_string().  When you get it working, the first test should pass.
+You should see that reverse_string passes its test,
+but itoc and add_digits don't.
 
-4) Fill in the body of itoc().  When you get it working, the second test should pass.
+2) Read the GDB tutorial at
 
-5) Fill in the body of add_digits().  When you get it working, the third test should pass.
+http://web.eecs.umich.edu/~sugih/pointers/summary.html
 
-6) Uncomment the last test in main.  If your three previous tests pass, this one should, too.
+3) Start gdb like this:
+
+gdb a.out
+
+4) At the gdb prompt, type
+
+run
+
+to run the program.  Since itoc is failing, let's look at
+its source code:
+
+list itoc
+
+And set a break point at the beginning of itoc
+
+break itoc
+
+Now if you run the program again, it should stop every time
+itoc is called, and you'll be able to see the value of the parameter.
+
+To run a single line of code, type
+
+step
+
+To print the value of a variable
+
+print i
+
+5) Read the descriptions of step and next, try them out, and make
+sure you know the difference.
+
+6) See if you can find the error in itoc, and fix it.
+
+7) In main, uncomment the line that calls test_reverse_string_again.
+Compile and run the program again.  You should see that
+reverse_string is actually not correct, even though it passes
+its test.  See if you can debug it.
 
 */
 
@@ -33,13 +71,20 @@ s: string
 returns: string
 */
 char *reverse_string(char *s) {
-    char *reversed_string = malloc(strlen(s));
-    int counter = 0;
-    for (int i=strlen(s)-1; i>=0; i--) {
-        reversed_string[counter] = s[i];
-        counter++;
+    int n = strlen(s);
+    char *t = malloc(n+1);
+    char *to = t;
+    char *from = s + n - 1;
+
+    while(1) {
+        *to = *from;
+        to++;
+        from--;
+        if (from < s) {
+            break;
+        }
     }
-    return reversed_string;
+    return t;
 }
 
 /* ctoi: Converts a character to integer.
@@ -58,8 +103,8 @@ i: integer 0 to 9
 returns: character '0' to '9'
 */
 char itoc(int i) {
-    assert (i>=0 && i <= 9);
-    return (char) (i + 48);
+    assert(i >= 0 && i <=9);
+    return 0 + i;
 }
 
 /* add_digits: Adds two decimal digits, returns the total and carry.
@@ -75,12 +120,9 @@ carry: pointer to char
 
 */
 void add_digits(char a, char b, char c, char *total, char *carry) {
-    int a_int = ctoi(a);
-    int b_int = ctoi(b);
-    int c_int = ctoi(c);
-    int sum = a_int + b_int + c_int;
-    *total = itoc(sum%10);
-    *carry = itoc(sum/10);
+    int sum = ctoi(a) + ctoi(b) + ctoi(c);
+    *total = itoc(sum % 10);
+    *carry = itoc(sum / 10);
 }
 
 /* Define a type to represent a BigInt.
@@ -194,17 +236,27 @@ void test_add_bigint() {
     char *t = "99999999999999999999999999999999999999999999";
     char *res = "000000000000000000000000000000000000000000001";
 
-    BigInt big1 = make_bigint(s);    
+    BigInt big1 = make_bigint(s);
     BigInt big2 = make_bigint(t);
     BigInt big3 = malloc(100);
 
 	add_bigint(big1, big2, '0', big3);
-    
+
     if (strcmp(big3, res) == 0) {
         printf("add_bigint passed\n");
     } else {
         printf("add_bigint failed\n");
     }
+}
+
+void test_reverse_string_again() {
+    char *buffer = malloc(400);
+    for (int i=0; i<400; i++) {
+        buffer[i] = i;
+    }
+    free(buffer);
+    char *reversed = reverse_string("123");
+    printf("%s\n", reversed);
 }
 
 int main (int argc, char *argv[])
@@ -215,6 +267,9 @@ int main (int argc, char *argv[])
 
     //TODO: When you have the first three functions working,
     //      uncomment the following, and it should work.
-    test_add_bigint();
+    // test_add_bigint();
+
+    // test_reverse_string_again();
+
     return 0;
 }
