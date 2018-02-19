@@ -27,8 +27,14 @@ returns: 1 if true, 0 otherwise
 */
 int endswith(char *s, char *suffix)
 {
-    // TODO: Fill this in!
-    return 0;
+    if (strlen(s) < strlen(suffix)){
+        return 0;
+    }
+    // printf("%s\n", s + strlen(s) - strlen(suffix));
+    // printf("%s\n", suffix);
+    // Comparison is 0 if they're the same
+    int comparison = strcmp(s + strlen(s) - strlen(suffix), suffix);
+    return !(comparison);
 }
 
 
@@ -47,7 +53,7 @@ int main (int argc, char *argv[])
     test_endswith("endswith", "offendswith", 0);
 
     // what's the right answer?
-    // test_endswith("endswith", "", ?);
+    test_endswith("endswith", "", 1);
 
     printf("All tests passed\n");
 }
