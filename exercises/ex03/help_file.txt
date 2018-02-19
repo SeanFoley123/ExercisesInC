@@ -1,0 +1,8 @@
+Usage: tee [OPTION]... [FILE]...
+Copy standard input to each FILE, and also to standard output.
+Enter as many files as you would like.
+
+  -a, --append              append to the given FILEs, do not overwrite
+  -i, --ignore-interrupts   ignore interrupt signals
+  --help     display this help and exit
+  --version  output version information and exit
