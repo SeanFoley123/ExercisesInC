@@ -21,8 +21,8 @@ int main (int argc, char *argv[]) {
 	char *read_write_mode = "w";
 
 	FILE *help_file = fopen("./help_file.txt", "r");
-	char help_string[str_buffer_size];
-
+	char help_string[str_buffer_size]
+;
 	// This struct tranlates longform options to their equivalents
 	static struct option long_options[] = {
 		{"append", no_argument, NULL, 'a'},
