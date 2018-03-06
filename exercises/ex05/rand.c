@@ -78,19 +78,19 @@ float my_random_float2()
 // compute a random double using my algorithm
 double my_random_double()
 {
-    int x;
-    int mant;
-    int exp = 126;
-    int mask = 1;
+    long x;
+    long mant;
+    long exp = 1022;
+    long mask = 1;
 
     union {
         double f;
-        int i;
+        long i;
     } b;
 
     // generate random bits until we see the first set bit
     while (1) {
-        x = random();
+        x = random() << 32 | random();
         if (x == 0) {
             exp -= 63;
         } else {
