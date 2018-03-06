@@ -53,7 +53,7 @@ double time_func(int iters, float(*func)())
 }
 
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     double time;
     int iters = 100000000;
