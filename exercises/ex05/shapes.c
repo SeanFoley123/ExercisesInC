@@ -19,17 +19,7 @@ MIT License
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define BUFSIZE 100
-
-typedef struct {
-    double x, y;
-} Point;
-
-typedef struct {
-    Point *corner;
-    double width, height;
-} Rectangle;
+#include "shapes.h"
 
 /* Return a new Point
 
