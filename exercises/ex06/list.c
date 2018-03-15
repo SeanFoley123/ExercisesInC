@@ -54,8 +54,14 @@ void print_list(Node **list) {
 * returns: int or -1 if the list is empty
 */
 int pop(Node **list) {
-    // FILL THIS IN!
-    return 0;
+    Node *head = (*list);
+    if (head == NULL){
+        return -1;
+    }
+    int val = head->val;
+    *list = head->next;     //I'm confused why list = &(head->next) doesn't work here
+    free(head);
+    return val;
 }
 
 
@@ -65,7 +71,9 @@ int pop(Node **list) {
 * val: value to add
 */
 void push(Node **list, int val) {
-    // FILL THIS IN!
+    Node *new_node = make_node(val, NULL);
+    new_node->next = *list;
+    *list = new_node;
 }
 
 
@@ -79,8 +87,27 @@ void push(Node **list, int val) {
 * returns: number of nodes removed
 */
 int remove_by_value(Node **list, int val) {
-    // FILL THIS IN!
-    return 0;
+    Node *current = *list;
+    Node *prev = NULL;
+    Node *next_node = NULL;
+    int counter = 0;
+
+    while (current != NULL){
+        next_node = current->next;
+        if (current->val == val){
+            if (prev == NULL){
+                pop(list);
+            }
+            else{
+                prev->next = next_node;
+                free(current);
+            }
+            counter += 1;
+        }
+        prev = current;
+        current = next_node;
+    }
+    return counter;
 }
 
 
@@ -91,7 +118,16 @@ int remove_by_value(Node **list, int val) {
 * list: pointer to pointer to Node
 */
 void reverse(Node **list) {
-    // FILL THIS IN!
+    Node *current = *list;
+    Node *prev = NULL;
+    Node *next = NULL;
+    while (current != NULL){
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    *list = prev;
 }
 
 
@@ -103,8 +139,8 @@ int main() {
 
     Node **list = &head;
     print_list(list);
-
     int retval = pop(list);
+
     print_list(list);
 
     push(list, retval+10);
