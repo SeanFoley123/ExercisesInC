@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import thinkplot
 import matplotlib.pyplot as pyplot
 
@@ -17,4 +19,4 @@ for stride in sorted(d.keys()):
     print(stride, len(d[stride]))
 
 pyplot.xscale('log', basex=2)
-thinkplot.show(xlabel='size (B)', ylabel='access time (ns)')
+thinkplot.show(xlabel='size (B)', ylabel='average miss penalty (ns)')
