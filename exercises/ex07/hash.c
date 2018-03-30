@@ -177,9 +177,10 @@ int hash_hashable(Hashable *hashable)
 * returns: 1 if equal, 0 otherwise
 */
 int equal_int (void *ip, void *jp)
-{
-    // FILL THIS IN!
-    return 0;
+{   
+    int *ip_int = (int *) ip;
+    int *jp_int = (int *) jp;
+    return ((*ip_int) == (*jp_int));
 }
 
 
@@ -192,8 +193,10 @@ int equal_int (void *ip, void *jp)
 */
 int equal_string (void *s1, void *s2)
 {
-    // FILL THIS IN!
-    return 0;
+    char *s1_str = (char *) s1;
+    char *s2_str = (char *) s2;
+    // printf("%s and %s\n", s1_str, s2_str);
+    return !strcmp(s1_str, s2_str);
 }
 
 
@@ -207,8 +210,9 @@ int equal_string (void *s1, void *s2)
 */
 int equal_hashable(Hashable *h1, Hashable *h2)
 {
-    // FILL THIS IN!
-    return 0;
+    int e1 = h1->equal(h1->key, h2->key);
+    int e2 = h2->equal(h1->key, h2->key);
+    return e1&&e2;
 }
 
 
@@ -267,7 +271,7 @@ void print_node(Node *node)
 {
     print_hashable(node->key);
     printf ("value %p\n", node->value);
-    printf ("next %p\n", node->next);
+    printf ("next %p\n\n", node->next);
 }
 
 
@@ -296,7 +300,15 @@ Node *prepend(Hashable *key, Value *value, Node *rest)
 /* Looks up a key and returns the corresponding value, or NULL */
 Value *list_lookup(Node *list, Hashable *key)
 {
-    // FILL THIS IN!
+
+    while (list != NULL) {
+        // print_hashable(list->key);
+        // print_hashable(key);
+        if (equal_hashable(list->key, key)) {
+            return list->value;
+        }
+        list = list->next;
+    }
     return NULL;
 }
 
@@ -341,14 +353,19 @@ void print_map(Map *map)
 /* Adds a key-value pair to a map. */
 void map_add(Map *map, Hashable *key, Value *value)
 {
-    // FILL THIS IN!
+    // I'm guessing we're skipping the resize, because there's no tracker int
+    int i = hash_hashable(key)%(map->n);
+    map->lists[i] = prepend(key, value, map->lists[i]);
 }
 
 
 /* Looks up a key and returns the corresponding value, or NULL. */
 Value *map_lookup(Map *map, Hashable *key)
 {
-    // FILL THIS IN!
+    int i = hash_hashable(key)%(map->n);
+    if (map->lists[i] != NULL){
+        return map->lists[i]->value;
+    }
     return NULL;
 }
 
@@ -377,6 +394,8 @@ int main ()
     Node *list = prepend(hashable2, value2, node1);
     print_list (list);
 
+    puts(" ");
+
     // run some test lookups
     Value *value = list_lookup (list, hashable1);
     print_lookup(value);
@@ -392,7 +411,7 @@ int main ()
     map_add(map, hashable1, value1);
     map_add(map, hashable2, value2);
 
-    printf ("Map\n");
+    printf ("\nMap\n");
     print_map(map);
 
     // run some test lookups
