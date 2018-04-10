@@ -14,7 +14,7 @@ License: GNU GPLv3
 void perror_exit(char *s)
 {
   perror(s);  
-  exit(-1); ;
+  exit(-1);
 }
 
 void *check_malloc(int size)
