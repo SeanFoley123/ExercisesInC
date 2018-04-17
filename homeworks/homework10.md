@@ -40,7 +40,7 @@ the queue in an inconsistent state.
 
 7) Do you have to lock the mutex to signal a condition variable?
 
-- No, but you should make sure to unlock it, or the thing you're signaling will never execute.
+- No, but you should make sure to unlock it, or the thing you're signaling will never execute.	
 
 8) Does the condition have to be true when you signal a condition variable?
 
