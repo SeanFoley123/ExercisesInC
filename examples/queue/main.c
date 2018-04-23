@@ -14,7 +14,7 @@ License: Creative Commons Attribution-ShareAlike 3.0
 
 #define NUM_CHILDREN 2
 #define NUM_ELEMENTS 64
-#define QUEUE_LENGTH 64
+#define QUEUE_LENGTH 8
 
 
 // SHARED
