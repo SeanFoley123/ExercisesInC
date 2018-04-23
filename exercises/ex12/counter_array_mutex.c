@@ -48,7 +48,6 @@ Shared *make_shared(int end)
     }
 
     shared->mutex = make_mutex();
-
     return shared;
 }
 
@@ -82,6 +81,7 @@ void child_code(Shared *shared)
             mutex_unlock(shared->mutex);
             return;
         }
+
         shared->array[shared->counter]++;
         shared->counter++;
 
@@ -105,7 +105,6 @@ void check_array(Shared *shared)
     int i, errors=0;
 
     // printf("Checking...\n");
-
     for (i=0; i<shared->end; i++) {
         if (shared->array[i] != 1) errors++;
     }
