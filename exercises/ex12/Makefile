@@ -10,3 +10,9 @@ counter_mutex: counter_mutex.c mutex.h mutex.c
 
 counter_array_mutex: counter_array_mutex.c mutex.c mutex.h
 	gcc -Wall -o counter_array_mutex counter_array_mutex.c mutex.c -lpthread
+
+barrier: barrier.c utils.c
+	gcc -Wall -std=c99 -o barrier barrier.c utils.c -lpthread
+
+barrier_soln: barrier_soln.c utils.c
+	gcc -Wall -std=c99 -o barrier_soln barrier_soln.c utils.c -lpthread
