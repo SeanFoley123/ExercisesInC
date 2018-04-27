@@ -33,6 +33,15 @@ double get_seconds() {
 void child_code(int i)
 {
     sleep(i);
+    int num;
+    if (i == 0){
+        num = 0;
+    }
+    else{
+        num += 1;
+    }
+    printf("%i\n", num);
+    printf("Chilld %i has stack at %p\n", i, &num);
     printf("Hello from child %d.\n", i);
 }
 
