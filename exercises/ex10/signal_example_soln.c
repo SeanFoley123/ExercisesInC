@@ -41,11 +41,14 @@ void end_game(int sig)
     exit(EXIT_SUCCESS);
 }
 
+int end_flag = 0;
+
 /* Signal handler: Notify the user and raise SIGINT.
 */
 void times_up(int sig) {
-    puts("\nTIME'S UP!");
-    raise(SIGINT);
+    //puts("\nTIME'S UP!");
+    //raise(SIGINT);
+    end_flag = 1;
 }
 
 int main(void) {
@@ -62,19 +65,17 @@ int main(void) {
     srandom((unsigned int) time(NULL));
 
     while(1) {
-        // pose the question
         a = rand() % 11;
         b = rand() % 11;
         printf("\nWhat is %d times %d? ", a, b);
 
-        // set (or reset) the alarm
         alarm(5);
+	    while (1) {
+	        char *ret = fgets(txt, 4, stdin);
+	        if (ret) break;
+	    }
 
-        // get the answer
-	    char *ret = fgets(txt, 4, stdin);
         answer = atoi(txt);
-
-        // check the answer
         if (answer == a * b) {
             printf("\nRight!\n");
             score++;
@@ -82,6 +83,10 @@ int main(void) {
             printf("\nWrong!\n");
         }
         printf("Score: %i\n", score);
+
+	    if (end_flag) {
+	        end_game(0);
+	    }
     }
     return 0;
 }
