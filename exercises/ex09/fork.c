@@ -31,7 +31,7 @@ double get_seconds() {
 
 
 void child_code(int i)
-{
+{   
     sleep(i);
     int num;
     if (i == 0){
@@ -42,6 +42,8 @@ void child_code(int i)
     }
     printf("%i\n", num);
     printf("Chilld %i has stack at %p\n", i, &num);
+    // The stack is at the same location for different children. I believe this
+    // is because they have the same virtual address space.
     printf("Hello from child %d.\n", i);
 }
 

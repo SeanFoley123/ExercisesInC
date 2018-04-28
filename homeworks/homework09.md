@@ -21,4 +21,3 @@ What happens if another thread tries to join a thread it did not create?
 5) What goes wrong if several threads try to increment a shared integer at the same time?
 
 6) What does it mean to "lock a mutex"?
-
