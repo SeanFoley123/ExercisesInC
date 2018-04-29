@@ -180,37 +180,47 @@ Node *make_something() {
     return node3;
 }
 
+void free_list(Node *head) {
+    if (head != NULL) {
+        Node *next = head->next;
+        free(head);
+        free_list(next);
+    }
+}
+
 
 int main() {
     // make a list of even numbers
-    // Node *test_list = make_node(2, NULL);
-    // test_list->next = make_node(4, NULL);
-    // test_list->next->next = make_node(6, NULL);
+    Node *test_list = make_node(2, NULL);
+    test_list->next = make_node(4, NULL);
+    test_list->next->next = make_node(6, NULL);
 
-    // // insert the odd numbers
-    // insert_by_index(&test_list, 1, 0);
-    // insert_by_index(&test_list, 3, 2);
-    // insert_by_index(&test_list, 5, 4);
-    // insert_by_index(&test_list, 7, 6);
+    // insert the odd numbers
+    insert_by_index(&test_list, 1, 0);
+    insert_by_index(&test_list, 3, 2);
+    insert_by_index(&test_list, 5, 4);
+    insert_by_index(&test_list, 7, 6);
 
-    // // this index is out of bounds; should return -1
-    // int res = insert_by_index(&test_list, 9, 8);
-    // assert(res == -1);
+    // this index is out of bounds; should return -1
+    int res = insert_by_index(&test_list, 9, 8);
+    assert(res == -1);
 
-    // printf("test_list\n");
-    // print_list(&test_list);
+    printf("test_list\n");
+    print_list(&test_list);
+    free_list(test_list);
 
-    // // make an empty list
-    // printf("empty\n");
-    // Node *empty = NULL;
+    // make an empty list
+    printf("empty\n");
+    Node *empty = NULL;
 
-    // // add an element to the empty list
-    // insert_by_index(&empty, 1, 0);
-    // print_list(&empty);
+    // add an element to the empty list
+    insert_by_index(&empty, 1, 0);
+    print_list(&empty);
+    free_list(empty);
 
     Node *something = make_something();
-    print_list(&something);
-    free(something);
+    // print_list(&something);
+    free_list(something);
 
     return 0;
 }
